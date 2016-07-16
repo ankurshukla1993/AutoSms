@@ -9,6 +9,7 @@
         android:id="@+id/webview"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:paddingLeft="30dp"
     android:layout_width="180dp"
     android:layout_height="170dp" />
 

@@ -49,12 +49,14 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
             @Override
             public void onClick(View v) {
                     String otp = tv.getText().toString();
-                if(!"".equalsIgnoreCase(otp) && otp != null){
+                /*if(!"".equalsIgnoreCase(otp) && otp != null){
                     if(otp.equalsIgnoreCase(String.valueOf(num))){
                         Intent i = new Intent(MainActivity.this, SelectMessage.class);
                         startActivity(i);
                     }
-                }
+                }*/
+                Intent i = new Intent(MainActivity.this, SelectMessage.class);
+                startActivity(i);
             }
         });
     }

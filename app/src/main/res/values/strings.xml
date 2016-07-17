@@ -4,4 +4,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_select_sender_id">SelectSenderId</string>
+    <string-array name="senderid_array">
+        <item>NVPETR</item>
+        <item>NVHPCL</item>
+        <item>NVPTXN</item>
+        <item>NVPINF</item>
+    </string-array>
+    <string name="title_activity_receipents">Receipents</string>
 </resources>

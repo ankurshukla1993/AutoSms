@@ -33,6 +33,10 @@
             android:name=".SelectSenderId"
             android:label="@string/title_activity_select_sender_id" >
         </activity>
+        <activity
+            android:name=".Receipents"
+            android:label="@string/title_activity_receipents" >
+        </activity>
     </application>
 
 </manifest>

@@ -58,7 +58,7 @@ public class SelectMessage extends AppCompatActivity implements ConnectivityRece
                     Bundle b = new Bundle();
                     b.putString("Message", messageList.get(position));
                     Intent i = new Intent(SelectMessage.this, SelectSenderId.class);
-                    i.putExtra("Message", b);
+                    i.putExtras(b);
                     startActivity(i);
                 }
             });

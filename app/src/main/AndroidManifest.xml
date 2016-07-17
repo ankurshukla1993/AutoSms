@@ -26,7 +26,10 @@
             android:name="autosms.ankur.com.autosms.MainActivity"
             android:label="@string/app_name" >
         </activity>
-
+        <activity
+            android:name="autosms.ankur.com.autosms.SelectMessage"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

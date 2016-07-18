@@ -2,43 +2,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".Receipents" >
 
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/getPhoneBook"
-        android:text="Select from Phone Book"/>
+        android:id="@+id/MainView">
 
-    <TextView
-        android:paddingTop="30dp"
-        android:layout_below="@+id/getPhoneBook"
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
-        android:text="Selected Phone Numbers are : -" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Receipients Here"
+            android:textSize="20dp"
+            android:textColor="#FFFFFF"
+            android:background="#43A047"
+            android:textAlignment="center"
+            />
 
-    <EditText
-        android:layout_below="@+id/textView1"
-        android:paddingTop="30dp"
-        android:layout_width="250dp"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="Enter Number to add the recepients"
-        android:id="@+id/setPhoneNumber"/>
-    <Button
-        android:id="@+id/setNumber"
-        android:layout_below="@+id/textView1"
-        android:paddingTop="30dp"
-        android:paddingLeft="40dp"
-        android:layout_alignRight="@+id/setPhoneNumber"
-        android:layout_width="wrap_content"
+        android:id="@+id/linearsetting"
+        android:padding="5dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/MainView"
+        >
+        <EditText
+            android:layout_width="270dp"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:hint="Enter Number to add..."
+            android:textColor="#000000"
+            android:background="#ffffff"
+            android:textSize="20dp"
+            android:id="@+id/setPhoneNumber"/>
+        <Button
+            android:id="@+id/setNumber"
+            android:layout_alignParentRight="true"
+            android:textColor="#FFFFFF"
+            android:background="#43A047"
+            android:layout_marginLeft="15dp"
+            android:layout_alignRight="@+id/setPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OK"
-        />
+        android:layout_below="@+id/linearsetting"
+        android:id="@+id/buttonlinear">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/getPhoneBook"
+            android:layout_marginTop="20dp"
+            android:text="Select from Phone Book"
+            android:padding="5dp"
+            android:textColor="#FFFFFF"
+            android:background="#43A047"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/sendMessage"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            android:text="Send Message to all"
+            android:padding="5dp"
+            android:textColor="#FFFFFF"
+            android:background="#43A047"/>
+    </LinearLayout>
+
+
+
+
+    <ListView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonlinear"
+        android:id="@+id/listDisplay">
+    </ListView>
 
 </RelativeLayout>

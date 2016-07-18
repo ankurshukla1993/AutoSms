@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         WebView wv = (WebView) findViewById(R.id.webview);
         wv.loadUrl("file:///android_res/drawable/hp_logo.gif");
 
-        if (checkConnection())
-            preparedata();
+        //if (checkConnection())
+            //preparedata();
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override

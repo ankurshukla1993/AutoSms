@@ -2,20 +2,86 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/senderId"
+        android:text="Select Sender Id"
+        android:textColor="#FFFFFF"
+        android:background="#43A047"
+        android:textSize="20dp"
+        android:padding="5dp"/>
+    <Spinner
+        android:id="@+id/senderid_spinner"
+        android:textColor="#FFFFFF"
+        android:textSize="100dp"
+        android:background="#43A047"
+        android:layout_below="@+id/senderId"
+        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
+        android:layout_gravity="center"
+        android:layout_height="60dp"
+        android:padding="2dp"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/senderid_spinner"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:textColor="#000000"
+        android:id="@+id/displayMessage"
+        android:background="#ffff66"
+        android:textSize="20dp"
+        android:hint="No Message is Selected....."/>
+
     <EditText
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:id="@+id/etmessage"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnNew"
-        android:paddingTop="5dp"
-        android:text="Add New Message"/>
+        android:layout_below="@+id/senderid_spinner"
+        android:layout_marginTop="20dp"
+        android:textColor="#000000"
+        android:id="@+id/etmessage"
+        android:textSize="20dp"
+        android:hint="Enter new Message Here..."
+        android:padding="5dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etmessage"
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnNew"
+            android:textColor="#FFFFFF"
+            android:background="#43A047"
+            android:text="Add New Message"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etmessage"
+            android:layout_alignRight="@+id/btnNew"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#FFFFFF"
+            android:background="#43A047"
+            android:id="@+id/buttonGo"
+            android:text="Go To Next"/>
+    </LinearLayout>
     <ListView
         android:id="@+id/list"
+        android:layout_below="@+id/btnNew"
+        android:layout_marginTop="5dp"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:textSize="20dp"
+        >
     </ListView>
+
 
 </LinearLayout>

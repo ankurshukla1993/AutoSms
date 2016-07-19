@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     public void preparedata() {
         Random rand = new Random();
         num = rand.nextInt(9000000) + 1000000;
-        String url1 = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=NVPETR&to=9016925840,9016184470,9956840921&message=Your+OTP+is+"+String.valueOf(num)+"&reqid=1&format=text&route_id=&sendondate=16-07-2016T11:39:33";
+        String url1 = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=NVPETR&to=9016925840,9016184470&message=Your+OTP+is+"+String.valueOf(num)+"&reqid=1&format=text&route_id=&sendondate=16-07-2016T11:39:33";
         Log.d("prepareData", "url = " + url1);
         String resp1 = volleyCall(url1);
         Log.d("prepareData", "response = " + resp1);

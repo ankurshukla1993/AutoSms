@@ -54,6 +54,7 @@ public class SelectMessage extends AppCompatActivity implements ConnectivityRece
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_message);
+
         sharedPreference = new SharedPreference();
         list = (ListView)findViewById(R.id.list);
         spinner = (Spinner) findViewById(R.id.senderid_spinner);
@@ -139,7 +140,7 @@ public class SelectMessage extends AppCompatActivity implements ConnectivityRece
                     sharedPreference.addMessages(getApplicationContext(), message);
                     messageSelected = message ;
                     display_selected_message.setText(messageSelected);
-                    messageList.add(message) ;
+                    messageList.add(0,message) ;
                     adapter.notifyDataSetChanged();
                     Log.d("ButtonClicked ::", "Message=" + message + " is now add  size = " + messageList.size());
                     newMessage.setText(null);

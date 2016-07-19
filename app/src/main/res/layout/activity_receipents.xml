@@ -1,14 +1,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Receipents" >
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" N V Petroleum Enterprise Message System"
+        android:textSize="14dp"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/mybutton"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/mainDisplay2"
+        android:layout_marginBottom="8dp"
+
+        />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/MainView">
+        android:id="@+id/MainView"
+        android:layout_below="@id/mainDisplay2">
 
         <TextView
             android:layout_width="match_parent"

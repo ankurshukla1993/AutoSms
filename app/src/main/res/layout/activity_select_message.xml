@@ -6,6 +6,22 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text=" N V Petroleum Enterprise Message System"
+        android:textSize="14dp"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/mybutton"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/mainDisplay"
+        android:layout_marginBottom="8dp"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainDisplay"
         android:id="@+id/senderId"
         android:text="Select Sender Id"
         android:textColor="#FFFFFF"

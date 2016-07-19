@@ -1,27 +1,17 @@
-
-
 package autosms.ankur.com.autosms;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.MediaStore;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,14 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-public class Receipents extends Activity implements ConnectivityReceiver.ConnectivityReceiverListener{
-    @Override
-    public void onNetworkConnectionChanged(boolean isConnected) {
-        if (!isConnected)
-            Toast.makeText(Receipents.this, "No Internet Connection....", Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(Receipents.this, "Internet Connection Back Again....", Toast.LENGTH_LONG).show();
-    }
+public class Receipents extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener{
 
     private Button getPhone ;
     private EditText getPhoneNUmber ;
@@ -89,29 +72,33 @@ public class Receipents extends Activity implements ConnectivityReceiver.Connect
                     //Toast.makeText(Receipents.this, "No Internet Connection....", Toast.LENGTH_LONG).show();
 
                     String number_to_add = "";
-                    if (numberList.size() > 0)
+                    if (numberList.size() > 0) {
                         for (int i = 0; i < numberList.size(); i++) {
                             number_to_add = number_to_add + numberList.get(i) + ",";
                         }
 
-                    if (message.matches(pattern))
-                        finalStringUrl = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=" + senderId + "&to=";
-                    else
-                        finalStringUrl = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=" + senderId + "&to=" ;
+                        if (message.matches(pattern))
+                            finalStringUrl = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=" + senderId + "&to=";
+                        else
+                            finalStringUrl = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=" + senderId + "&to=";
 
-                    finalStringUrl = finalStringUrl + number_to_add + "&message=" + message + "&reqid=1&format=" +
-                            "text&route_id=&sendondate=16-07-2016T11:39:33";
+                        finalStringUrl = finalStringUrl + number_to_add + "&message=" + message + "&reqid=1&format=" +
+                                "text&route_id=&sendondate=16-07-2016T11:39:33";
 
-                    if(!message.matches(pattern))
-                        finalStringUrl = finalStringUrl + "&msgtype=unicode" ;
+                        if (!message.matches(pattern))
+                            finalStringUrl = finalStringUrl + "&msgtype=unicode";
 
-                    //Toast.makeText(Receipents.this, finalStringUrl, Toast.LENGTH_SHORT).show();
-                    Log.d("Recepients : ", finalStringUrl) ;
-                    String resp1 = volleyCall(finalStringUrl);
-                    if (resp1 != null) {
-                        finish();
-                    } else {
-                        Toast.makeText(Receipents.this, "Message Sending Failed !!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Receipents.this, finalStringUrl, Toast.LENGTH_SHORT).show();
+                        Log.d("Recepients : ", finalStringUrl);
+                        String resp1 = volleyCall(finalStringUrl);
+                        if (resp1 != null) {
+                            finish();
+                        } else {
+                            Toast.makeText(Receipents.this, "Message Sending Failed !!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(Receipents.this, "No numbers are Selected !! :(", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
@@ -147,7 +134,7 @@ public class Receipents extends Activity implements ConnectivityReceiver.Connect
                 }else if(phone_number.length() == 10){
 
                     phone_number = "91" + phone_number ;
-                    numberList.add(phone_number) ;
+                    numberList.add(0,phone_number) ;
                     adapter.notifyDataSetChanged();
                 }
                 getPhoneNUmber.setText(null);
@@ -253,13 +240,13 @@ public class Receipents extends Activity implements ConnectivityReceiver.Connect
                     String one = getGoodNumber(phoneNumber) ;
                     //Toast.makeText(Receipents.this, "One string = " + one, Toast.LENGTH_SHORT).show();
                     String p = "91" + one.substring(one.length() - 10).toString();//phoneNumber.substring(phoneNumber.length() - 3).toString();
-                    numberList.add(p) ;
+                    numberList.add(0,p) ;
                     adapter.notifyDataSetChanged();
 
                 } else if(phoneNumber.length() < 10){
                     Toast.makeText(Receipents.this, "Phone number has less that 10 integers", Toast.LENGTH_SHORT).show();
                 }else if(phoneNumber.length() == 10){
-                    numberList.add(phoneNumber.toString()) ;
+                    numberList.add(0,phoneNumber.toString()) ;
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -267,5 +254,13 @@ public class Receipents extends Activity implements ConnectivityReceiver.Connect
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        if (!isConnected)
+            Toast.makeText(Receipents.this, "No Internet Connection....", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(Receipents.this, "Internet Connection Back Again....", Toast.LENGTH_LONG).show();
     }
 }

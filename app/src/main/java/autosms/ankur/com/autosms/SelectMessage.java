@@ -63,7 +63,15 @@ public class SelectMessage extends AppCompatActivity implements ConnectivityRece
         newMessage.setVisibility(View.INVISIBLE);
         display_selected_message = (TextView)findViewById(R.id.displayMessage) ;
 
-        //messageList.add("Default") ;
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> spinner_adapter = ArrayAdapter.createFromResource(this,
+                R.array.senderid_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(spinner_adapter);
+        spinner.setSelected(false);
 
         messageList = sharedPreference.getMessages(getApplicationContext());
         if(messageList == null)
@@ -98,23 +106,6 @@ public class SelectMessage extends AppCompatActivity implements ConnectivityRece
         });
 
 
-        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });*/
-
-
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> spinner_adapter = ArrayAdapter.createFromResource(this,
-                R.array.senderid_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(spinner_adapter);
-        spinner.setSelected(false);
 
 
         go.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +128,7 @@ public class SelectMessage extends AppCompatActivity implements ConnectivityRece
                 newMessage.setVisibility(View.VISIBLE);
                 String message = newMessage.getText().toString();
 
-                Toast.makeText(SelectMessage.this, "Written Text = " + message, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SelectMessage.this, "Written Text = " + message, Toast.LENGTH_SHORT).show();
 
                 if(message != null && !"".equalsIgnoreCase(message)){
                     Log.d("ButtonClicked ::", "Message=" + message);

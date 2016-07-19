@@ -42,19 +42,19 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         WebView wv = (WebView) findViewById(R.id.webview);
         wv.loadUrl("file:///android_res/drawable/hp_logo.gif");
 
-        //if (checkConnection())
-            //preparedata();
+        if (checkConnection())
+            preparedata();
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     String otp = tv.getText().toString();
-                /*if(!"".equalsIgnoreCase(otp) && otp != null){
+                if(!"".equalsIgnoreCase(otp) && otp != null){
                     if(otp.equalsIgnoreCase(String.valueOf(num))){
                         Intent i = new Intent(MainActivity.this, SelectMessage.class);
                         startActivity(i);
                     }
-                }*/
+                }
                 Intent i = new Intent(MainActivity.this, SelectMessage.class);
                 startActivity(i);
             }
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     public void preparedata() {
         Random rand = new Random();
         num = rand.nextInt(9000000) + 1000000;
-        String url1 = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=NVPETR&to=919450132900,919956840921&message=Your+OTP+is+"+String.valueOf(num)+"&reqid=1&format=text&route_id=&sendondate=16-07-2016T11:39:33";
+        String url1 = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=NVPETR&to=9016925840,9016184470,9956840921&message=Your+OTP+is+"+String.valueOf(num)+"&reqid=1&format=text&route_id=&sendondate=16-07-2016T11:39:33";
         Log.d("prepareData", "url = " + url1);
         String resp1 = volleyCall(url1);
         Log.d("prepareData", "response = " + resp1);
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         resp.add(response);
-                        Toast.makeText(MainActivity.this, "reponse=" + response, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "reponse=" + response, Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override

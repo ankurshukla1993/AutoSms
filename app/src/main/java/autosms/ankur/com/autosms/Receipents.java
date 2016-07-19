@@ -24,7 +24,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Receipents extends Activity {
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+public class Receipents extends Activity implements ConnectivityReceiver.ConnectivityReceiverListener{
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        if (!isConnected)
+            Toast.makeText(Receipents.this, "No Internet Connection....", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(Receipents.this, "Internet Connection Back Again....", Toast.LENGTH_LONG).show();
+    }
 
     private Button getPhone ;
     private EditText getPhoneNUmber ;
@@ -33,6 +47,8 @@ public class Receipents extends Activity {
     private List_Adapter adapter ;
     private ListView list ;
     private Button send ;
+    private String message ;
+    private String senderId ;
 
     final int PICK_CONTACT = 0;
 
@@ -41,8 +57,9 @@ public class Receipents extends Activity {
         super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_receipents);
 
-        final String message = getIntent().getExtras().getString("Message");
-        final String senderId = getIntent().getExtras().getString("Senderid");
+        message = getIntent().getExtras().getString("Message");
+        message = getGoodMessage(message) ;
+        senderId = getIntent().getExtras().getString("Senderid");
 
 
 
@@ -62,27 +79,39 @@ public class Receipents extends Activity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String finalStringUrl = "" ;
-                String number_to_add = "" ;
-                if(numberList.size() > 0)
-                for(int i = 0; i < numberList.size(); i++){
-                    number_to_add = number_to_add + numberList.get(i) + "," ;
+                if (checkConnection()){
+                    //Toast.makeText(Receipents.this, "No Internet Connection....", Toast.LENGTH_LONG).show();
+                    String finalStringUrl = "";
+                    String number_to_add = "";
+                    if (numberList.size() > 0)
+                        for (int i = 0; i < numberList.size(); i++) {
+                            number_to_add = number_to_add + numberList.get(i) + ",";
+                        }
+                    finalStringUrl = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=NVPETR&to=" + number_to_add + "&message=" + message + "&reqid=1&format=" +
+                            "text&route_id=&sendondate=16-07-2016T11:39:33";
+                    //Toast.makeText(Receipents.this, finalStringUrl, Toast.LENGTH_SHORT).show();
+                    Log.d("Recepients : ", finalStringUrl) ;
+                    String resp1 = volleyCall(finalStringUrl);
+                    if (resp1 != null) {
+                        finish();
+                    } else {
+                        Toast.makeText(Receipents.this, "Message Sending Failed !!", Toast.LENGTH_LONG).show();
+                    }
                 }
-                finalStringUrl = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=NVPETR&to="+number_to_add+"&message="+message+"&reqid=1&format={json|text}&route_id=<route+id>&sendondate=16-07-2016T11:39:33" ;
-                Toast.makeText(Receipents.this, finalStringUrl, Toast.LENGTH_SHORT).show();
+                else{
+                    Toast.makeText(Receipents.this, "No Internet Connection....", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
         getPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try
-                {
+                try {
                     Intent intent = new Intent(Intent.ACTION_PICK);
                     intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
                     startActivityForResult(intent, PICK_CONTACT);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     Intent intent = getIntent();
                     finish();
                     startActivity(intent);
@@ -94,7 +123,7 @@ public class Receipents extends Activity {
             @Override
             public void onClick(View v) {
                 String phone_number = getGoodNumber(getPhoneNUmber.getText().toString()) ;
-                Toast.makeText(Receipents.this, "Phone Number = " + phone_number + " and length = " + phone_number.length(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(Receipents.this, "Phone Number = " + phone_number + " and length = " + phone_number.length(), Toast.LENGTH_SHORT).show();
                 if (phone_number.length() > 10) {
                     Toast.makeText(Receipents.this, "Number entered is greater that 10 digits", Toast.LENGTH_SHORT).show();
                 } else if(phone_number.length() < 10){
@@ -109,6 +138,54 @@ public class Receipents extends Activity {
             }
         });
     }
+
+    private String getGoodMessage(String message) {
+
+        String returnMessage = "" ;
+        for(int i = 0; i < message.length(); i++){
+            if(Character.isWhitespace(message.charAt(i)))
+                returnMessage = returnMessage + "+" ;
+            else
+                returnMessage = returnMessage + message.charAt(i) ;
+        }
+
+        return returnMessage;
+    }
+
+    private boolean checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        if (!isConnected)
+            Toast.makeText(Receipents.this, "No Internet Connection !!", Toast.LENGTH_SHORT).show();
+
+        return isConnected;
+    }
+
+
+    public String volleyCall(String url) {
+        final List<String> resp = new ArrayList<>();
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        resp.add(response);
+                        //Toast.makeText(Receipents.this, "reponse=" + response, Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Receipents.this, "Message Not Sent, Connection Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+        return ("response");
+    }
+
 
     public String getGoodNumber(String number){
 
@@ -158,7 +235,7 @@ public class Receipents extends Activity {
 
                 if (phoneNumber.length() > 10) {
                     String one = getGoodNumber(phoneNumber) ;
-                    Toast.makeText(Receipents.this, "One string = " + one, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Receipents.this, "One string = " + one, Toast.LENGTH_SHORT).show();
                     String p = "91" + one.substring(one.length() - 10).toString();//phoneNumber.substring(phoneNumber.length() - 3).toString();
                     numberList.add(p) ;
                     adapter.notifyDataSetChanged();
@@ -169,8 +246,6 @@ public class Receipents extends Activity {
                     numberList.add(phoneNumber.toString()) ;
                     adapter.notifyDataSetChanged();
                 }
-
-
             }
         }
         catch (Exception e) {

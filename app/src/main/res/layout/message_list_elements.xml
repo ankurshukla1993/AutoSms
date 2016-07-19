@@ -15,9 +15,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/messageid"
             android:textColor="#FFFFFF"
-            android:textSize="30dp"
+            android:textSize="20dp"
+            android:paddingLeft="5dp"
             android:layout_marginTop="5dp"
-            android:background="#43A047"/>
+            android:background="@drawable/mylist"/>
     </LinearLayout>
 
 </LinearLayout>

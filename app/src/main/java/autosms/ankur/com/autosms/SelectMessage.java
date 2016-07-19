@@ -112,13 +112,17 @@ public class SelectMessage extends AppCompatActivity implements ConnectivityRece
             @Override
             public void onClick(View v) {
 
-                String items = spinner.getSelectedItem().toString();
-                Bundle b = new Bundle();
-                b.putString("Message", messageSelected);
-                b.putString("Senderid", items);
-                Intent i = new Intent(SelectMessage.this, Receipents.class);
-                i.putExtras(b);
-                startActivity(i);
+                if(messageSelected != null) {
+                    String items = spinner.getSelectedItem().toString();
+                    Bundle b = new Bundle();
+                    b.putString("Message", messageSelected);
+                    b.putString("Senderid", items);
+                    Intent i = new Intent(SelectMessage.this, Receipents.class);
+                    i.putExtras(b);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(SelectMessage.this, "No Message is selected !! :(", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

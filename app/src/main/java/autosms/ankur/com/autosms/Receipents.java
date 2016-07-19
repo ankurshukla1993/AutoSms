@@ -49,6 +49,8 @@ public class Receipents extends Activity implements ConnectivityReceiver.Connect
     private Button send ;
     private String message ;
     private String senderId ;
+    private String finalStringUrl ;
+    private String pattern = "^[A-Za-z0-9. ]+$";
 
     final int PICK_CONTACT = 0;
 
@@ -57,9 +59,13 @@ public class Receipents extends Activity implements ConnectivityReceiver.Connect
         super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_receipents);
 
+
         message = getIntent().getExtras().getString("Message");
-        message = getGoodMessage(message) ;
         senderId = getIntent().getExtras().getString("Senderid");
+
+
+        message = getGoodMessage(message) ;
+
 
 
 
@@ -81,14 +87,24 @@ public class Receipents extends Activity implements ConnectivityReceiver.Connect
             public void onClick(View v) {
                 if (checkConnection()){
                     //Toast.makeText(Receipents.this, "No Internet Connection....", Toast.LENGTH_LONG).show();
-                    String finalStringUrl = "";
+
                     String number_to_add = "";
                     if (numberList.size() > 0)
                         for (int i = 0; i < numberList.size(); i++) {
                             number_to_add = number_to_add + numberList.get(i) + ",";
                         }
-                    finalStringUrl = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=NVPETR&to=" + number_to_add + "&message=" + message + "&reqid=1&format=" +
+
+                    if (message.matches(pattern))
+                        finalStringUrl = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=" + senderId + "&to=";
+                    else
+                        finalStringUrl = "http://my.b2bsms.co.in/API/WebSMS/Http/v1.0a/index.php?username=petrol&password=petrol&sender=" + senderId + "&to=" ;
+
+                    finalStringUrl = finalStringUrl + number_to_add + "&message=" + message + "&reqid=1&format=" +
                             "text&route_id=&sendondate=16-07-2016T11:39:33";
+
+                    if(!message.matches(pattern))
+                        finalStringUrl = finalStringUrl + "&msgtype=unicode" ;
+
                     //Toast.makeText(Receipents.this, finalStringUrl, Toast.LENGTH_SHORT).show();
                     Log.d("Recepients : ", finalStringUrl) ;
                     String resp1 = volleyCall(finalStringUrl);
@@ -172,7 +188,7 @@ public class Receipents extends Activity implements ConnectivityReceiver.Connect
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         resp.add(response);
-                        //Toast.makeText(Receipents.this, "reponse=" + response, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Receipents.this, "Message is delivered", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override

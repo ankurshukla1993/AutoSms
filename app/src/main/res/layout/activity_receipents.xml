@@ -16,7 +16,7 @@
             android:text="Add Receipients Here"
             android:textSize="20dp"
             android:textColor="#FFFFFF"
-            android:background="#43A047"
+            android:background="@drawable/mybutton"
             android:textAlignment="center"
             />
 
@@ -43,7 +43,7 @@
             android:id="@+id/setNumber"
             android:layout_alignParentRight="true"
             android:textColor="#FFFFFF"
-            android:background="#43A047"
+            android:background="@drawable/mybutton"
             android:layout_marginLeft="15dp"
             android:layout_alignRight="@+id/setPhoneNumber"
             android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
             android:text="Select from Phone Book"
             android:padding="5dp"
             android:textColor="#FFFFFF"
-            android:background="#43A047"/>
+            android:background="@drawable/mybutton"/>
         <Button
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -81,7 +81,7 @@
             android:text="Send Message to all"
             android:padding="5dp"
             android:textColor="#FFFFFF"
-            android:background="#43A047"/>
+            android:background="@drawable/mybutton"/>
     </LinearLayout>
 
 

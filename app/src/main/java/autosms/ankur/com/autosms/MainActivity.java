@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
     WebView wv;
     EditText tv;
     Button b;
+    Button b1 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         wv = (WebView) findViewById(R.id.webview);
         tv = (EditText) findViewById(R.id.number);
         b = (Button) findViewById(R.id.button);
+        b1 = (Button)findViewById(R.id.buttonresend) ;
 
         WebView wv = (WebView) findViewById(R.id.webview);
         wv.loadUrl("file:///android_res/drawable/hp_logo.gif");
@@ -45,18 +47,36 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
         if (checkConnection())
             preparedata();
 
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Resending OTP", Toast.LENGTH_SHORT).show();
+                if (checkConnection())
+                preparedata();
+            }
+        });
+
+
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    String otp = tv.getText().toString();
+
+                String otp = tv.getText().toString();
                 if(!"".equalsIgnoreCase(otp) && otp != null){
                     if(otp.equalsIgnoreCase(String.valueOf(num))){
                         Intent i = new Intent(MainActivity.this, SelectMessage.class);
                         startActivity(i);
+                        finish();
                     }
                 }
-                Intent i = new Intent(MainActivity.this, SelectMessage.class);
+                else{
+                    Toast.makeText(MainActivity.this, "OTP does not match !! :(", Toast.LENGTH_SHORT).show();
+                    Log.d("OTP DID NOT MATCH","OTP = "+otp) ;
+                }
+
+                /*Intent i = new Intent(MainActivity.this, SelectMessage.class);
                 startActivity(i);
+                finish();*/
             }
         });
     }
@@ -67,29 +87,6 @@ public class MainActivity extends AppCompatActivity implements ConnectivityRecei
             Toast.makeText(MainActivity.this, "No Internet Connection !!", Toast.LENGTH_SHORT).show();
 
         return isConnected;
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

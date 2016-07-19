@@ -14,9 +14,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_number"
             android:textColor="#FFFFFF"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:layout_marginTop="5dp"
-            android:background="#43A047"/>
+            android:background="@drawable/mylist"
+            android:paddingLeft="5dp"/>
         <Button
             android:layout_width="0dp"
             android:layout_weight="0.3"
@@ -27,7 +28,7 @@
             android:layout_marginLeft="5dp"
             android:id="@+id/button"
             android:textColor="#FFFFFF"
-            android:background="#43A047"
+            android:background="@drawable/mybutton"
             android:text="Delete"/>
     </LinearLayout>
 
